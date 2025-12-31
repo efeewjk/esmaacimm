@@ -11,15 +11,15 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
-  font-family: 'Segoe UI', sans-serif;
 }
 
 body {
   background: linear-gradient(135deg, #ff4e8a, #ffb86c);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   color: white;
   padding: env(safe-area-inset-top)
            env(safe-area-inset-right)
@@ -27,21 +27,19 @@ body {
            env(safe-area-inset-left);
 }
 
-/* Kart */
 .card {
   background: rgba(0,0,0,0.35);
-  border-radius: 24px;
+  border-radius: 26px;
   padding: 24px;
   width: 92%;
   max-width: 390px;
   text-align: center;
-  animation: fadeIn 1.5s ease;
+  animation: fadeIn 1.2s ease;
 }
 
 h1 { font-size: 24px; }
 p { font-size: 16px; line-height: 1.7; }
 
-/* Butonlar */
 .buttons {
   margin-top: 20px;
   display: flex;
@@ -49,7 +47,7 @@ p { font-size: 16px; line-height: 1.7; }
 }
 
 button {
-  padding: 12px 22px;
+  padding: 12px 24px;
   border-radius: 30px;
   border: none;
   font-size: 16px;
@@ -73,9 +71,9 @@ button {
 .gallery {
   width: 100%;
   height: 240px;
+  margin: 15px 0;
   border-radius: 18px;
   overflow: hidden;
-  margin: 15px 0;
 }
 
 .gallery img {
@@ -102,7 +100,7 @@ button {
 /* Nabız */
 .heart {
   font-size: 36px;
-  animation: pulse 1.5s infinite;
+  animation: pulse 1.4s infinite;
 }
 
 @keyframes pulse {
@@ -120,7 +118,7 @@ button {
   position: absolute;
   width: 8px;
   height: 8px;
-  animation: confettiFall 3s linear forwards;
+  animation: confettiFall linear forwards;
 }
 
 @keyframes confettiFall {
@@ -164,10 +162,10 @@ button {
 
   <p>
     Seni tanıdığım günden beri<br>
-    hayat daha anlamlı.<br><br>
+    hayat daha güzel.<br><br>
 
-    Gülüşün en güzel alışkanlığım,<br>
-    yanın en güvenli yerim oldu.<br><br>
+    Gülüşün en sevdiğim alışkanlık,<br>
+    yanın en güvenli yer oldu.<br><br>
 
     Bu yıl da, tüm yıllar da<br>
     kalbim seninle.
@@ -183,9 +181,14 @@ button {
 </div>
 
 <script>
-/* Fotoğraflar */
-const photos = ["foto1.jpg", "foto2.jpg", "foto3.jpg"];
+/* 📸 SINIRSIZ FOTO */
+let photos = [];
 let index = 0;
+
+// Maksimum kaç foto ekleyebilirsin
+for (let i = 1; i <= 50; i++) {
+  photos.push(`foto${i}.jpg`);
+}
 
 /* BAŞLAT */
 function startLove() {
@@ -193,7 +196,7 @@ function startLove() {
   document.getElementById("messageCard").classList.remove("hidden");
   document.getElementById("music").play();
 
-  // 📳 iPhone titreşim (kullanıcı tıklamasıyla çalışır)
+  // 📳 iPhone titreşim
   if (navigator.vibrate) {
     navigator.vibrate([200, 100, 200]);
   }
@@ -204,14 +207,15 @@ function startLove() {
 /* Hayır kaçsın */
 function moveNo() {
   const btn = document.getElementById("no");
-  btn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
+  btn.style.transform =
+    `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
 }
 
 /* Foto değişimi */
 setInterval(() => {
   index = (index + 1) % photos.length;
   document.getElementById("photo").src = photos[index];
-}, 3500);
+}, 4000);
 
 /* Kalpler */
 setInterval(() => {
@@ -227,13 +231,13 @@ setInterval(() => {
 /* Konfeti */
 function launchConfetti() {
   for (let i = 0; i < 80; i++) {
-    const confetti = document.createElement("div");
-    confetti.className = "confetti";
-    confetti.style.left = Math.random() * 100 + "vw";
-    confetti.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
-    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
-    document.body.appendChild(confetti);
-    setTimeout(() => confetti.remove(), 3000);
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},100%,70%)`;
+    c.style.animationDuration = (Math.random()*2 + 2) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 3000);
   }
 }
 </script>
