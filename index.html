@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Esma ❤️ Efe</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff4e8a, #ffb86c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+  color: white;
+}
+
+.card {
+  background: rgba(0,0,0,0.35);
+  padding: 25px;
+  border-radius: 25px;
+  text-align: center;
+  width: 90%;
+  max-width: 420px;
+  animation: fadeIn 2s ease;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+p {
+  font-size: 16.5px;
+  line-height: 1.7;
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  padding: 12px 22px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#yes {
+  background: white;
+  color: #ff4e8a;
+}
+
+#no {
+  background: #ff4e8a;
+  color: white;
+  position: relative;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Galeri */
+.gallery {
+  margin: 15px 0;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: slide 12s infinite;
+}
+
+@keyframes slide {
+  0% { opacity: 1; }
+  33% { opacity: 0; }
+  66% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.heart {
+  font-size: 36px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.3); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Akan kalpler */
+.floating-heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- GİRİŞ -->
+<div class="card" id="questionCard">
+  <h1>💖 Esma 💖</h1>
+  <p>
+    Benimle…<br>
+    yeni yıllarımıza,<br>
+    yeni anılarımıza,<br>
+    yeni gülüşlerimize<br>
+    hazır mısın?
+  </p>
+
+  <div class="buttons">
+    <button id="yes" onclick="yesClick()">Evet 😍</button>
+    <button id="no" onmouseover="moveNo()">Hayır 🙈</button>
+  </div>
+</div>
+
+<!-- MESAJ -->
+<div class="card hidden" id="messageCard">
+  <h1>🎆 Mutlu Yıllar Aşkım 🎆</h1>
+
+  <div class="gallery">
+    <img id="photo" src="photo1.jpg">
+  </div>
+
+  <p>
+    Seni tanıdığım günden beri<br>
+    zaman başka akıyor Esma…<br><br>
+
+    Gülüşün içimi ısıtıyor,<br>
+    sesin en karanlık günümü bile aydınlatıyor.<br><br>
+
+    Yeni yıldan tek bir dileğim var:<br>
+    Daha çok “biz” olmak…<br>
+    Daha çok anı biriktirmek…<br>
+    Daha çok yan yana uyanmak.
+  </p>
+
+  <div class="heart">❤️</div>
+
+  <p>
+    Bu yıl da,<br>
+    sonraki tüm yıllar da,<br>
+    kalbim sana ait.<br><br>
+
+    İyi ki varsın Esma…<br>
+    Seni çok seviyorum.<br><br>
+
+    — <b>Efe</b> 💖
+  </p>
+</div>
+
+<script>
+const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
+let index = 0;
+
+function yesClick() {
+  document.getElementById("questionCard").classList.add("hidden");
+  document.getElementById("messageCard").classList.remove("hidden");
+  document.getElementById("music").play();
+}
+
+function moveNo() {
+  const noBtn = document.getElementById("no");
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+// Fotoğraf değiştir
+setInterval(() => {
+  index = (index + 1) % photos.length;
+  document.getElementById("photo").src = photos[index];
+}, 4000);
+
+// Kalpler
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "floating-heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}, 350);
+</script>
+
+</body>
+</html>
