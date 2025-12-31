@@ -2,41 +2,46 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Esma ❤️ Efe</title>
 
 <style>
-body {
+html, body {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
   background: linear-gradient(135deg, #ff4e8a, #ffb86c);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Segoe UI', sans-serif;
-  overflow: hidden;
   color: white;
+  padding: env(safe-area-inset-top)
+           env(safe-area-inset-right)
+           env(safe-area-inset-bottom)
+           env(safe-area-inset-left);
 }
 
+/* Kart */
 .card {
   background: rgba(0,0,0,0.35);
-  padding: 25px;
-  border-radius: 25px;
+  border-radius: 24px;
+  padding: 24px;
+  width: 92%;
+  max-width: 390px;
   text-align: center;
-  width: 90%;
-  max-width: 420px;
-  animation: fadeIn 2s ease;
+  animation: fadeIn 1.5s ease;
 }
 
-h1 {
-  font-size: 26px;
-}
+h1 { font-size: 24px; }
+p { font-size: 16px; line-height: 1.7; }
 
-p {
-  font-size: 16.5px;
-  line-height: 1.7;
-}
-
+/* Butonlar */
 .buttons {
   margin-top: 20px;
   display: flex;
@@ -62,48 +67,24 @@ button {
   position: relative;
 }
 
-.hidden {
-  display: none;
-}
+.hidden { display: none; }
 
 /* Galeri */
 .gallery {
-  margin: 15px 0;
   width: 100%;
-  height: 220px;
-  overflow: hidden;
+  height: 240px;
   border-radius: 18px;
+  overflow: hidden;
+  margin: 15px 0;
 }
 
 .gallery img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: slide 12s infinite;
 }
 
-@keyframes slide {
-  0% { opacity: 1; }
-  33% { opacity: 0; }
-  66% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-.heart {
-  font-size: 36px;
-  animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-  50% { transform: scale(1.3); }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Akan kalpler */
+/* Kalpler */
 .floating-heart {
   position: absolute;
   bottom: -20px;
@@ -114,6 +95,37 @@ button {
 @keyframes floatUp {
   to {
     transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+
+/* Nabız */
+.heart {
+  font-size: 36px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.3); }
+}
+
+/* Fade */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Konfeti */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
     opacity: 0;
   }
 }
@@ -130,15 +142,14 @@ button {
 <div class="card" id="questionCard">
   <h1>💖 Esma 💖</h1>
   <p>
-    Benimle…<br>
-    yeni yıllarımıza,<br>
+    Benimle yeni yıllarımıza,<br>
     yeni anılarımıza,<br>
     yeni gülüşlerimize<br>
     hazır mısın?
   </p>
 
   <div class="buttons">
-    <button id="yes" onclick="yesClick()">Evet 😍</button>
+    <button id="yes" onclick="startLove()">Evet 😍</button>
     <button id="no" onmouseover="moveNo()">Hayır 🙈</button>
   </div>
 </div>
@@ -148,60 +159,61 @@ button {
   <h1>🎆 Mutlu Yıllar Aşkım 🎆</h1>
 
   <div class="gallery">
-    <img id="photo" src="photo1.jpg">
+    <img id="photo" src="foto1.jpg">
   </div>
 
   <p>
     Seni tanıdığım günden beri<br>
-    zaman başka akıyor Esma…<br><br>
+    hayat daha anlamlı.<br><br>
 
-    Gülüşün içimi ısıtıyor,<br>
-    sesin en karanlık günümü bile aydınlatıyor.<br><br>
+    Gülüşün en güzel alışkanlığım,<br>
+    yanın en güvenli yerim oldu.<br><br>
 
-    Yeni yıldan tek bir dileğim var:<br>
-    Daha çok “biz” olmak…<br>
-    Daha çok anı biriktirmek…<br>
-    Daha çok yan yana uyanmak.
+    Bu yıl da, tüm yıllar da<br>
+    kalbim seninle.
   </p>
 
   <div class="heart">❤️</div>
 
   <p>
-    Bu yıl da,<br>
-    sonraki tüm yıllar da,<br>
-    kalbim sana ait.<br><br>
-
     İyi ki varsın Esma…<br>
     Seni çok seviyorum.<br><br>
-
     — <b>Efe</b> 💖
   </p>
 </div>
 
 <script>
-const photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
+/* Fotoğraflar */
+const photos = ["foto1.jpg", "foto2.jpg", "foto3.jpg"];
 let index = 0;
 
-function yesClick() {
+/* BAŞLAT */
+function startLove() {
   document.getElementById("questionCard").classList.add("hidden");
   document.getElementById("messageCard").classList.remove("hidden");
   document.getElementById("music").play();
+
+  // 📳 iPhone titreşim (kullanıcı tıklamasıyla çalışır)
+  if (navigator.vibrate) {
+    navigator.vibrate([200, 100, 200]);
+  }
+
+  launchConfetti();
 }
 
+/* Hayır kaçsın */
 function moveNo() {
-  const noBtn = document.getElementById("no");
-  const x = Math.random() * 200 - 100;
-  const y = Math.random() * 200 - 100;
-  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  const btn = document.getElementById("no");
+  btn.style.transform = `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
 }
 
-// Fotoğraf değiştir
+/* Foto değişimi */
 setInterval(() => {
   index = (index + 1) % photos.length;
   document.getElementById("photo").src = photos[index];
-}, 4000);
+}, 3500);
 
-// Kalpler
+/* Kalpler */
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "floating-heart";
@@ -210,7 +222,20 @@ setInterval(() => {
   heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 7000);
-}, 350);
+}, 400);
+
+/* Konfeti */
+function launchConfetti() {
+  for (let i = 0; i < 80; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.background = `hsl(${Math.random()*360}, 100%, 70%)`;
+    confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
 </script>
 
 </body>
