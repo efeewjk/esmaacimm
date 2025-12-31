@@ -67,19 +67,53 @@ button {
 
 .hidden { display: none; }
 
-/* Galeri */
+/* 🎬 GALERİ */
 .gallery {
   width: 100%;
   height: 240px;
   margin: 15px 0;
   border-radius: 18px;
   overflow: hidden;
+  position: relative;
 }
 
 .gallery img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  animation: cinema 6s ease-in-out forwards;
+}
+
+/* 🎬 Sinema efekti */
+@keyframes cinema {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* ❤️ Sonsuza Kadar */
+.forever {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: rgba(0,0,0,0.35);
+  opacity: 0;
+  animation: foreverFade 3s ease forwards;
+}
+
+@keyframes foreverFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Kalpler */
@@ -156,39 +190,37 @@ button {
 <div class="card hidden" id="messageCard">
   <h1>🎆 Mutlu Yıllar Aşkım 🎆</h1>
 
-  <div class="gallery">
+  <div class="gallery" id="gallery">
     <img id="photo" src="foto1.jpg">
   </div>
 
   <p>
-    Seni tanıdığım günden beri<br>
-    hayat daha güzel.<br><br>
+    Her karede bir anı,<br>
+    her anıda sen varsın.<br><br>
 
-    Gülüşün en sevdiğim alışkanlık,<br>
-    yanın en güvenli yer oldu.<br><br>
-
-    Bu yıl da, tüm yıllar da<br>
-    kalbim seninle.
+    Ve son kare…<br>
+    benim hep kalmak istediğim yer.
   </p>
 
   <div class="heart">❤️</div>
 
   <p>
-    İyi ki varsın Esma…<br>
-    Seni çok seviyorum.<br><br>
+    Seni çok seviyorum Esma.<br><br>
     — <b>Efe</b> 💖
   </p>
 </div>
 
 <script>
-/* 📸 SINIRSIZ FOTO */
-let photos = [];
-let index = 0;
+/* 📸 4 FOTO */
+const photos = [
+  "foto1.jpg",
+  "foto2.jpg",
+  "foto3.jpg",
+  "foto4.jpg"
+];
 
-// Maksimum kaç foto ekleyebilirsin
-for (let i = 1; i <= 50; i++) {
-  photos.push(`foto${i}.jpg`);
-}
+let index = 0;
+let slider;
 
 /* BAŞLAT */
 function startLove() {
@@ -196,12 +228,12 @@ function startLove() {
   document.getElementById("messageCard").classList.remove("hidden");
   document.getElementById("music").play();
 
-  // 📳 iPhone titreşim
   if (navigator.vibrate) {
     navigator.vibrate([200, 100, 200]);
   }
 
   launchConfetti();
+  startSlider();
 }
 
 /* Hayır kaçsın */
@@ -211,11 +243,30 @@ function moveNo() {
     `translate(${Math.random()*200-100}px, ${Math.random()*200-100}px)`;
 }
 
-/* Foto değişimi */
-setInterval(() => {
-  index = (index + 1) % photos.length;
-  document.getElementById("photo").src = photos[index];
-}, 4000);
+/* 🎬 Slider */
+function startSlider() {
+  slider = setInterval(() => {
+    if (index < photos.length - 1) {
+      index++;
+      const img = document.getElementById("photo");
+      img.style.animation = "none";
+      void img.offsetWidth;
+      img.src = photos[index];
+      img.style.animation = "cinema 6s ease-in-out forwards";
+    } else {
+      clearInterval(slider);
+      showForever();
+    }
+  }, 6000);
+}
+
+/* ❤️ Sonsuza Kadar */
+function showForever() {
+  const overlay = document.createElement("div");
+  overlay.className = "forever";
+  overlay.innerText = "Sonsuza Kadar";
+  document.getElementById("gallery").appendChild(overlay);
+}
 
 /* Kalpler */
 setInterval(() => {
